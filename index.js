@@ -6,6 +6,7 @@ const cardTemplate = function (country) {
 };
 
 const countriesNode = document.getElementById("countries");
+let countryList
 
 fetch('https://restcountries.com/v3.1/all')
   .then(function (response) {
@@ -13,10 +14,13 @@ fetch('https://restcountries.com/v3.1/all')
   })
   .then(function (countries) {
 
-    const countryList = countries.filter(country => country.name.common !== 'Israel')
+    countryList = countries.filter(country => country.name.common !== 'Israel')
     const countryCards = countryList.map(country => cardTemplate(country))
 
     countriesNode.innerHTML = countryCards
+
+    const continents = ['South America', 'Asia', 'Africa', 'Oceania', 'Antarctica', 'Europe']
+
 
     let america = countryList.filter(country => country.continents.includes('South America') || country.continents.includes('North America')).map(country => cardTemplate(country))
     let asia = countryList.filter(country => country.continents.includes('Asia')).map(country => cardTemplate(country))
@@ -29,11 +33,9 @@ fetch('https://restcountries.com/v3.1/all')
     listOfContinents.style.display = 'flex'
     listOfContinents.style.flexDirection = 'column'
     listOfContinents.style.width = "200px"
-    document.getElementsByTagName('label').style.padding = '10px'
-    
 
     const selection = () => `
-    <label for="countrySelection">Escoge un continente:</label>
+    <label id = 'label' for="countrySelection">Escoge un continente:</label>
     <select name = 'countrySelection' id = 'countrySelection'>
         <option value = 'todos'>Todos</option>
         <option value = 'america'>America</option>
@@ -49,27 +51,9 @@ fetch('https://restcountries.com/v3.1/all')
 
     document.getElementById('title').insertAdjacentElement("afterend", listOfContinents)
     document.getElementById('countrySelection').addEventListener('change', (e) => {
-      if (e.target.value === 'america') {
-        countriesNode.innerHTML = america
-      }
-      if (e.target.value === 'asia') {
-        countriesNode.innerHTML = asia
-      }
-      if (e.target.value === 'africa') {
-        countriesNode.innerHTML = africa
-      }
-      if (e.target.value === 'oceania') {
-        countriesNode.innerHTML = oceania
-      }
-      if (e.target.value === 'antarctica') {
-        countriesNode.innerHTML = antarctica
-      }
-      if (e.target.value === 'europe') {
-        countriesNode.innerHTML = europe
-      }
-      if (e.target.value === 'todos') {
-        countriesNode.innerHTML = countryCards
-      }
+      console.log(e.target.value)
+      countriesNode.innerHTML = e.target.value
+      //esto tampoco va: countriesNode.innerHTML = countryList.filter(country => country.continents.includes(e.target.value)).map(country => cardTemplate(country))
     })
   });
 
