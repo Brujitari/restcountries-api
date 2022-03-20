@@ -6,7 +6,7 @@ const cardTemplate = function (country) {
 };
 
 const countriesNode = document.getElementById("countries");
-let countryList
+
 
 fetch('https://restcountries.com/v3.1/all')
   .then(function (response) {
@@ -14,7 +14,7 @@ fetch('https://restcountries.com/v3.1/all')
   })
   .then(function (countries) {
 
-    countryList = countries.filter(country => country.name.common !== 'Israel')
+    const countryList = countries.filter(country => country.name.common !== 'Israel')
     const countryCards = countryList.map(country => cardTemplate(country))
 
     countriesNode.innerHTML = countryCards
