@@ -7,7 +7,6 @@ const cardTemplate = function (country) {
 
 const countriesNode = document.getElementById("countries");
 
-
 fetch('https://restcountries.com/v3.1/all')
   .then(function (response) {
     return response.json()
@@ -17,8 +16,6 @@ fetch('https://restcountries.com/v3.1/all')
     const countryList = countries.filter(country => country.name.common !== 'Israel')
 
     countriesNode.innerHTML = countryList.map(country => cardTemplate(country))
-
-    let filter = (value) => countryList.filter(country => country.continents.includes(value)).map(country => cardTemplate(country))
 
     const listOfContinents = document.createElement('div')
     listOfContinents.style.display = 'flex'
@@ -43,8 +40,7 @@ fetch('https://restcountries.com/v3.1/all')
 
     document.getElementById('title').insertAdjacentElement("afterend", listOfContinents)
     document.getElementById('countrySelection').addEventListener('change', (e) => {
-      countriesNode.innerHTML = filter(e.target.value)
-      //esto tampoco va: countriesNode.innerHTML = countryList.filter(country => country.continents.includes(e.target.value)).map(country => cardTemplate(country))
+      countriesNode.innerHTML = countryList.filter(country => country.continents.includes(e.target.value)).map(country => cardTemplate(country))
     })
   });
 
