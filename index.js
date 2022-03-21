@@ -21,13 +21,14 @@ fetch('https://restcountries.com/v3.1/all')
 
     const continents = ['South America', 'Asia', 'Africa', 'Oceania', 'Antarctica', 'Europe']
 
+    let filter = (value) => countryList.filter(country => country.continents.includes(value)).map(country => cardTemplate(country))
 
-    let america = countryList.filter(country => country.continents.includes('South America') || country.continents.includes('North America')).map(country => cardTemplate(country))
+   /*  let america = countryList.filter(country => country.continents.includes('South America') || country.continents.includes('North America')).map(country => cardTemplate(country))
     let asia = countryList.filter(country => country.continents.includes('Asia')).map(country => cardTemplate(country))
     let africa = countryList.filter(country => country.continents.includes('Africa')).map(country => cardTemplate(country))
     let oceania = countryList.filter(country => country.continents.includes('Oceania')).map(country => cardTemplate(country))
     let antarctica = countryList.filter(country => country.continents.includes('Antarctica')).map(country => cardTemplate(country))
-    let europe = countryList.filter(country => country.continents.includes('Europe')).map(country => cardTemplate(country))
+    let europe = countryList.filter(country => country.continents.includes('Europe')).map(country => cardTemplate(country)) */
 
     const listOfContinents = document.createElement('div')
     listOfContinents.style.display = 'flex'
@@ -51,8 +52,7 @@ fetch('https://restcountries.com/v3.1/all')
 
     document.getElementById('title').insertAdjacentElement("afterend", listOfContinents)
     document.getElementById('countrySelection').addEventListener('change', (e) => {
-      console.log(e.target.value)
-      countriesNode.innerHTML = e.target.value
+      countriesNode.innerHTML = filter(e.target.value)
       //esto tampoco va: countriesNode.innerHTML = countryList.filter(country => country.continents.includes(e.target.value)).map(country => cardTemplate(country))
     })
   });
