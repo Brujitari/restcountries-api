@@ -15,20 +15,10 @@ fetch('https://restcountries.com/v3.1/all')
   .then(function (countries) {
 
     const countryList = countries.filter(country => country.name.common !== 'Israel')
-    const countryCards = countryList.map(country => cardTemplate(country))
 
-    countriesNode.innerHTML = countryCards
-
-    const continents = ['South America', 'Asia', 'Africa', 'Oceania', 'Antarctica', 'Europe']
+    countriesNode.innerHTML = countryList.map(country => cardTemplate(country))
 
     let filter = (value) => countryList.filter(country => country.continents.includes(value)).map(country => cardTemplate(country))
-
-   /*  let america = countryList.filter(country => country.continents.includes('South America') || country.continents.includes('North America')).map(country => cardTemplate(country))
-    let asia = countryList.filter(country => country.continents.includes('Asia')).map(country => cardTemplate(country))
-    let africa = countryList.filter(country => country.continents.includes('Africa')).map(country => cardTemplate(country))
-    let oceania = countryList.filter(country => country.continents.includes('Oceania')).map(country => cardTemplate(country))
-    let antarctica = countryList.filter(country => country.continents.includes('Antarctica')).map(country => cardTemplate(country))
-    let europe = countryList.filter(country => country.continents.includes('Europe')).map(country => cardTemplate(country)) */
 
     const listOfContinents = document.createElement('div')
     listOfContinents.style.display = 'flex'
@@ -39,12 +29,13 @@ fetch('https://restcountries.com/v3.1/all')
     <label id = 'label' for="countrySelection">Escoge un continente:</label>
     <select name = 'countrySelection' id = 'countrySelection'>
         <option value = 'todos'>Todos</option>
-        <option value = 'america'>America</option>
-        <option value = 'asia'>Asia</option>
-        <option value = 'africa'>Africa</option>
-        <option value = 'oceania'>Oceania</option>
-        <option value = 'antarctica'>Antarctica</option>
-        <option value = 'europe'>Europa</option>
+        <option value = 'North America'>North America</option>
+        <option value = 'South America'>South America</option>
+        <option value = 'Asia'>Asia</option>
+        <option value = 'Africa'>Africa</option>
+        <option value = 'Oceania'>Oceania</option>
+        <option value = 'Antarctica'>Antarctica</option>
+        <option value = 'Europe'>Europa</option>
       </select>
     `
 
